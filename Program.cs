@@ -1,90 +1,101 @@
-﻿using System;
-
-namespace Gazi.HelloWorldApp
+﻿namespace DonemSonuOdevi
 {
     internal class Program
     {
-        static int sayi = 5;
         static void Main(string[] args)
         {
-            
-            //Değişkenler-Veri Yapıları
-            
-            Console.WriteLine("Gazi");
-            Console.WriteLine("Sudenaz Tezel");
+            try
+            {
+                Console.WriteLine("Kaç öğrenci kaydetmek istiyorsunuz:");
+                int giris = int.Parse(Console.ReadLine());
+                string[,] ogrenci = new string[giris + 1, 7];
+                ogrenci[0, 0] = "Öğrenci Numarası";
+                ogrenci[0, 1] = "Öğrenci Adı";
+                ogrenci[0, 2] = "Öğrenci Soyadı";
+                ogrenci[0, 3] = "Vize Notu";
+                ogrenci[0, 4] = "Final Notu";
+                ogrenci[0, 5] = "Ortalama";
+                ogrenci[0, 6] = "Harf Notu";
+                double toportalama = 0;
+                int maxNot = int.MinValue;
+                int minNot = int.MaxValue;
 
-            //byte a;//Veri tipi:byte,ismi a
-            //byte b;
-            //a=10;//a değişkenine değer ataması.
-            //b=20;
+                for (int i = 1; i <= giris; i++)
+                {
+                    Console.WriteLine($"{i}.Öğrencinin numarasını giriniz");
+                    long numara = long.Parse(Console.ReadLine());
+                    Console.WriteLine($"{i}.Öğrencinin adını giriniz");
+                    string isim = Console.ReadLine();
+                    Console.WriteLine($"{i}.Öğrencinin soyadını giriniz");
+                    string soyisim = Console.ReadLine();
+                    int vize;
+                    do
+                    {
+                        Console.WriteLine($"{i}.Öğrencinin vize notunu giriniz (0-100)");
+                        vize = int.Parse(Console.ReadLine());
+                        if (vize < 0 || vize > 100)
+                            Console.WriteLine("Lütfen belirtilen değerler arasında bir değer giriniz.");
 
-            //byte c=30;
+                    }
+                    while (vize < 0 || vize > 100);
+                    int final;
+                    do
+                    {
+                        Console.WriteLine($"{i}.Öğrencinin final notunu giriniz (0-100)");
+                        final = int.Parse(Console.ReadLine());
+                        if (final < 0 || final > 100)
+                            Console.WriteLine("Lütfen belirtilen değerler arasında bir değer giriniz.");
+                    }
+                    while (final < 0 || final > 100);
 
-            //byte a = 30, b;
-            //b = 40;
-
-            //a = 50;
-
-            //const int number = 50;
-
-            //byte yas;
-            //Console.Writeline(yas);Değeri olmayan değişkenler
-            //hiç birişlemde kullanılamaz.
-
-            //byte a=10,b=30,c;
-            //c=a*b
-
-            //Console.WriteLine(c);
-
-            //float sayi=3.15f;
-
-            //var sayi = 5.25D;//Implicit (Veri tipinin açık belirtilmediği durum)
-            // double number = 5.25;//Explicit (Veri tipinin açıkca belirtildiği durum)
-
-            char c = 'A';
-            string isim = "Mehmet";
-            string soyad ="Ahmet";
+                    double ortalama = vize * 0.4 + final * 0.6;
+                    toportalama += ortalama;
+                    maxNot = Math.Max(maxNot, Math.Max(vize, final));
+                    minNot = Math.Min(minNot, Math.Min(vize, final));
+                    string harfnotu = ortalama >= 85 ? "AA" :
+                                      ortalama >= 75 ? "BA" :
+                                      ortalama >= 60 ? "BB" :
+                                      ortalama >= 50 ? "CB" :
+                                      ortalama >= 40 ? "CC" :
+                                      ortalama >= 30 ? "DC" :
+                                      ortalama >= 20 ? "DD" :
+                                      ortalama >= 10 ? "FD" : "FF";
 
 
-            Console.ReadKey();
+
+                    ogrenci[i, 0] = numara.ToString();
+                    ogrenci[i, 1] = isim;
+                    ogrenci[i, 2] = soyisim;
+                    ogrenci[i, 3] = vize.ToString();
+                    ogrenci[i, 4] = final.ToString();
+                    ogrenci[i, 5] = ortalama.ToString("0.00");
+                    ogrenci[i, 6] = harfnotu;
+                }
+                double sınıfOrtalaması = toportalama / giris;
+
+                Console.WriteLine("\nGirilen Öğrenci Bilgileri:");
+                for (int i = 0; i <= giris; i++)
+                {
+                    for (int j = 0; j < 7; j++)
+                    {
+                        Console.Write(ogrenci[i, j].PadRight(15));
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine("\nSınıf Bilgileri:");
+                Console.WriteLine($"Sınıf Ortalaması: {sınıfOrtalaması:0.00}");
+                Console.WriteLine($"En Yüksek Not: {maxNot}");
+                Console.WriteLine($"En Düşük Not: {minNot}");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Bir hata oluştu: {ex.Message}"); 
+            }
+
+
+
         }
     }
 }
-
-//Bu bir açıklama satırıdır.
-//Namespace:İçinde classları bulunduran yapılardır.
-//{}Scope(Blok) yapılarıdır.
-//Class:İçinde metodları bulunduran yapılardır.(Bu tanım şimdilik yaptığımız bi tanımdır, ilerleyen konularda bu konuyu detaylandıracağız.)
-//Metod:İş yapan kod bloklarına metod denir.
-//Main Metodu:Console uygulamalarının giriş noktasıdır.Her console uygulaması, main metodu ile başlar.
-//Ctrl+F5:Hata ayaklama modu olmadan programı çalıştırır.
-//Syntax:Programlama dilleri yazım kuralları
-//C# Syntax:
-//1- Açılan parantezler mutlaka kapatılmalıdır.
-//2- Scope tanımlamalarının sonunda ; bulunmaz.
-//3- Satırların sonunda ; bulunur.
-//4- Metodların sonunda mutlaka () bulunur.
-//Syntax hatası olursa program derlenmez. Dolayısıyla çalışmaz. VS hata olan yerinaltını kırmızı çizgi ile işaretler.
-//Bununla birlikte scroolbar'da kırmızı bir işaretle hatanın yerini bildirir.
-//VS penceresinin alt kısmında da kırmızı bir çarpı işareti, yanında da kaç hata mesajı olduğu yazılır.
-
-//IntelliSense: Kod yazarken yardımcı olan, açılan pencere. 
-//IntelliCode: Yapay zeka destekli kod yazım yardımcısı.
-
-//Solution Explorer: Solution'ımızın içindeki projelere ulaşabileceğimiz penceredir. View menüsü aracılığı ile açılabilir.
-
-//Solution: Bir ya da birden fazla proje içerebilirler.
-
-//Ctrl+K+C:Açıklama satırı ekler //.
-//Ctrl+K+U:Normal satıra geri dönüş.
-//Ctrl+S:Kaydeder.
-
-//C#->Derleme->MS-IL->Derleme(.NET Runtime)->0-1(Binary)
-
-//MS-IL:Microsoft Intermediate Language
-//1 bit:0 veya 1
-//8 bit: 1 byte
-//1 Kilo Byte(KB):1024 byte
-//1 Mega Byte(MB):1024 KB
-//1 Giga Byte(GB):1024 MB
-//1 Tera Byte(TB):1024 GB
