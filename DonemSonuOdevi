@@ -22,16 +22,16 @@
 
                 for (int i = 1; i <= giris; i++)
                 {
-                    Console.WriteLine($"{i}.Öğrencinin numarasını giriniz");
+                    Console.WriteLine($"{i}.Öğrencinin numarasını giriniz:");
                     long numara = long.Parse(Console.ReadLine());
-                    Console.WriteLine($"{i}.Öğrencinin adını giriniz");
+                    Console.WriteLine($"{i}.Öğrencinin adını giriniz:");
                     string isim = Console.ReadLine();
-                    Console.WriteLine($"{i}.Öğrencinin soyadını giriniz");
+                    Console.WriteLine($"{i}.Öğrencinin soyadını giriniz:");
                     string soyisim = Console.ReadLine();
                     int vize;
                     do
                     {
-                        Console.WriteLine($"{i}.Öğrencinin vize notunu giriniz (0-100)");
+                        Console.WriteLine($"{i}.Öğrencinin vize notunu giriniz (0-100):");
                         vize = int.Parse(Console.ReadLine());
                         if (vize < 0 || vize > 100)
                             Console.WriteLine("Lütfen belirtilen değerler arasında bir değer giriniz.");
@@ -41,7 +41,7 @@
                     int final;
                     do
                     {
-                        Console.WriteLine($"{i}.Öğrencinin final notunu giriniz (0-100)");
+                        Console.WriteLine($"{i}.Öğrencinin final notunu giriniz (0-100):");
                         final = int.Parse(Console.ReadLine());
                         if (final < 0 || final > 100)
                             Console.WriteLine("Lütfen belirtilen değerler arasında bir değer giriniz.");
